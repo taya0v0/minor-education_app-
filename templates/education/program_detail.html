@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ program.name }} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>{{ program.name }}</h4>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <td><strong>Специальность:</strong></td>
+                        <td>{{ program.specialty }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Университет:</strong></td>
+                        <td>{{ program.university }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Уровень образования:</strong></td>
+                        <td>{{ program.get_degree_level_display }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Форма обучения:</strong></td>
+                        <td>{{ program.get_study_type_display }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Рейтинг:</strong></td>
+                        <td>{{ program.rating }} / 5.0</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Длительность:</strong></td>
+                        <td>{{ program.duration_years }} лет ({{ months_total }} месяцев)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Кредиты:</strong></td>
+                        <td>{{ program.credits }} ({{ credits_per_year }} в год)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость в год:</strong></td>
+                        <td>{{ program.cost_per_year|floatformat:0 }} ₽ ({{ cost_per_month|floatformat:0 }} ₽ в месяц)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Общая стоимость:</strong></td>
+                        <td>{{ program.total_cost|floatformat:0 }} ₽</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Стоимость за кредит:</strong></td>
+                        <td>{{ program.cost_per_credit|floatformat:0 }} ₽</td>
+                    </tr>
+                </table>
+                
+                <hr>
+                
+                <p><small>Добавлено: {{ program.created_at|date:"d.m.Y H:i" }}</small></p>
+                {% if program.updated_at != program.created_at %}
+                <p><small>Обновлено: {{ program.updated_at|date:"d.m.Y H:i" }}</small></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Действия</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{% url 'program_list' %}" class="btn btn-secondary">Назад к списку</a>
+                    <a href="{% url 'add_program' %}" class="btn btn-success">Добавить новую программу</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-3">
+            <div class="card-header">
+                <h6>Оценка программы</h6>
+            </div>
+            <div class="card-body">
+                {% if program.rating >= 4.5 %}
+                    <p class="text-success">Отличная программа!</p>
+                {% elif program.rating >= 4.0 %}
+                    <p class="text-primary">Хорошая программа</p>
+                {% elif program.rating >= 3.0 %}
+                    <p class="text-warning">Программа среднего уровня</p>
+                {% else %}
+                    <p class="text-danger">Программа требует улучшений</p>
+                {% endif %}
+                
+                {% if program.cost_per_year <= 200000 %}
+                    <p class="text-success">Доступная стоимость</p>
+                {% elif program.cost_per_year <= 400000 %}
+                    <p class="text-warning">Средняя стоимость</p>
+                {% else %}
+                    <p class="text-danger">Высокая стоимость</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Добавить программу - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header">
+                <h4>Добавить образовательную программу</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.name.label }}</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger">{{ form.name.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.university.label }}</label>
+                        {{ form.university }}
+                        {% if form.university.errors %}
+                            <div class="text-danger">{{ form.university.errors }}</div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ form.degree_level.label }}</label>
+                                {{ form.degree_level }}
+                                {% if form.degree_level.errors %}
+                                    <div class="text-danger">{{ form.degree_level.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ form.study_type.label }}</label>
+                                {{ form.study_type }}
+                                {% if form.study_type.errors %}
+                                    <div class="text-danger">{{ form.study_type.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ form.duration_years.label }}</label>
+                                {{ form.duration_years }}
+                                {% if form.duration_years.errors %}
+                                    <div class="text-danger">{{ form.duration_years.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ form.cost_per_year.label }}</label>
+                                {{ form.cost_per_year }}
+                                {% if form.cost_per_year.errors %}
+                                    <div class="text-danger">{{ form.cost_per_year.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-end">
+                        <a href="{% url 'program_list' %}" class="btn btn-secondary">Отмена</a>
+                        <button type="submit" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

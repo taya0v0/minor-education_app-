@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="bg-primary text-white p-4 rounded mb-4">
+            <h1>Образовательные программы</h1>
+            <a class="btn btn-light" href="{% url 'add_program' %}">Добавить программу</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+        <div class="card text-center">
+            <div class="card-body">
+                <h4>{{ total_programs }}</h4>
+                <p>Всего программ в базе данных</p>
+                <a href="{% url 'program_list' %}" class="btn btn-primary">Просмотреть все программы</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if recent_programs %}
+<div class="row">
+    <div class="col-12">
+        <h3>Последние добавленные программы</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Университет</th>
+                    <th>Уровень</th>
+                    <th>Форма обучения</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for program in recent_programs %}
+                <tr>
+                    <td>{{ program.name }}</td>
+                    <td>{{ program.university }}</td>
+                    <td>{{ program.get_degree_level_display }}</td>
+                    <td>{{ program.get_study_type_display }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

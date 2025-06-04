@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика - {{ block.super }}{% endblock %}
+
+{% block content %}
+<h2>Статистика</h2>
+
+<div class="row">
+    <!-- Статистика по уровням -->
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Статистика по уровням образования</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Уровень</th>
+                            <th>Количество программ</th>
+                            <th>Средняя стоимость в год</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in degree_stats %}
+                        <tr>
+                            <td>
+                                {% if stat.degree_level == 'bachelor' %}Бакалавриат{% endif %}
+                                {% if stat.degree_level == 'master' %}Магистратура{% endif %}
+                                {% if stat.degree_level == 'specialist' %}Специалитет{% endif %}
+                            </td>
+                            <td>{{ stat.count }}</td>
+                            <td>{{ stat.avg_cost|floatformat:0 }} ₽</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Статистика по формам обучения -->
+    <div class="col-md-12 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Статистика по формам обучения</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Форма обучения</th>
+                            <th>Количество программ</th>
+                            <th>Средняя стоимость в год</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in study_type_stats %}
+                        <tr>
+                            <td>
+                                {% if stat.study_type == 'full_time' %}Очное{% endif %}
+                                {% if stat.study_type == 'part_time' %}Заочное{% endif %}
+                                {% if stat.study_type == 'distance' %}Дистанционное{% endif %}
+                            </td>
+                            <td>{{ stat.count }}</td>
+                            <td>{{ stat.avg_cost|floatformat:0 }} ₽</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
