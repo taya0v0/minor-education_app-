@@ -7,7 +7,9 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [    'minor-education-app.onrender.com',  # Ваш домен на Render
+    'localhost',                         # Для локальной разработки
+    '127.0.0.1', ]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
