@@ -5,11 +5,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-your-secret-key-here'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [    'minor-education-app.onrender.com',  # Ваш домен на Render
     'localhost',                         # Для локальной разработки
     '127.0.0.1', ]
+
+PORT = os.environ.get('PORT', 8000)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
